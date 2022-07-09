@@ -201,12 +201,6 @@ def synthezise(synth=False):
     cfg["HLSConfig"]["LayerName"]["tmul_1"]["ReuseFactor"] = 1
     cfg["HLSConfig"]["LayerName"]["tmul_2"]["ReuseFactor"] = 1
     cfg["HLSConfig"]["LayerName"]["tmul_3"]["ReuseFactor"] = 1
-    cfg["HLSConfig"]["LayerName"]["conv1D_e1"]["ReuseFactor"] = 8
-    cfg["HLSConfig"]["LayerName"]["conv1D_e2"]["ReuseFactor"] = 8
-    cfg["HLSConfig"]["LayerName"]["conv1D_e3"]["ReuseFactor"] = 8
-    cfg["HLSConfig"]["LayerName"]["conv1D_n1"]["ReuseFactor"] = 8
-    cfg["HLSConfig"]["LayerName"]["conv1D_n2"]["ReuseFactor"] = 8
-    cfg["HLSConfig"]["LayerName"]["conv1D_n3"]["ReuseFactor"] = 8
     # Convert the Keras model to C++ and write it
     hls_model = hls4ml.converters.keras_to_hls(cfg)
     #  hls_model.write()
@@ -381,31 +375,31 @@ if __name__ == "__main__":
         # "model_QInteractionNetwork_nconst_8_nbits_8",
         # "model_QInteractionNetwork_nconst_16_nbits_8",
         # "model_QInteractionNetwork_nconst_32_nbits_8",
-        "model_QInteractionNetwork_Conv1D_nconst_8_nbits_4",
+        # "model_QInteractionNetwork_Conv1D_nconst_8_nbits_4",
         # "model_QInteractionNetwork_Conv1D_nconst_8_nbits_6",
         # "model_QInteractionNetwork_Conv1D_nconst_8_nbits_8",
-        # "model_QInteractionNetwork_Conv1D_nconst_16_nbits_4",
+        "model_QInteractionNetwork_Conv1D_nconst_16_nbits_4",
         # "model_QInteractionNetwork_Conv1D_nconst_16_nbits_8",
         # "model_QInteractionNetwork_Conv1D_nconst_32_nbits_4",
         # "model_QInteractionNetwork_Conv1D_nconst_32_nbits_8"
     ]
 
     # Set NCONSTIT in data and IO mode
-    NCONST = 8
+    NCONST = 16
 
     # Set HLS4ML processing mode e reuse factor
     #  For Javier's CONV1D io_parallel hack (NCONST/REUSE) must be an integer !!!
     #  IO = 'io_stream'
     IO = "io_parallel"
-    REUSE = 8
+    REUSE = 16
 
     # Set XILINX device
     # FPGA_NAME = 'xcvu9p-flgb2104-2l-e'
     FPGA_NAME = "xcvu9p-flgb2104-2L-e"
 
     # Synthesize and Print
-    synth = False  # Synthesize the models
-    prt = False  # Print Vivado reports ( latency and resource consumption )
+    synth = True  # Synthesize the models
+    prt = True  # Print Vivado reports ( latency and resource consumption )
 
     # Print Conda ENV
     print("Using CONDA ENVIRONMENT ------->", os.environ["CONDA_PREFIX"])
