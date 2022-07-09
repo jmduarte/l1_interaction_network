@@ -1,0 +1,20 @@
+name: hls4ml-l1jets-javier-ioparallel
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7
+  - cxx-compiler 
+  - jupyterhub
+  - pydot
+  - graphviz
+  - pip
+  - pip:
+    - jupyter
+    - tensorflow==2.5
+    - tensorflow_datasets
+    - git+https://github.com/jmduarte/hls4ml.git@split_pointwise_conv_by_rf#egg=hls4ml[profiling]
+    - git+https://github.com/google/qkeras.git#egg=qkeras
+    - scikit-learn
+    - uproot
+
+
