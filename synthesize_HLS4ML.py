@@ -198,9 +198,13 @@ def synthezise(synth=False):
     cfg["OutputDir"] = "results/{}".format(mname)
     cfg["Part"] = FPGA_NAME  # new way of setting FPGA in master branch
 
-    cfg["HLSConfig"]["LayerName"]["tmul_1"]["ReuseFactor"] = 1
-    cfg["HLSConfig"]["LayerName"]["tmul_2"]["ReuseFactor"] = 1
-    cfg["HLSConfig"]["LayerName"]["tmul_3"]["ReuseFactor"] = 1
+    cfg["HLSConfig"]["LayerName"]["tmul_1"]["ReuseFactor"] = 3
+    cfg["HLSConfig"]["LayerName"]["tmul_2"]["ReuseFactor"] = 3
+    cfg["HLSConfig"]["LayerName"]["tmul_3"]["ReuseFactor"] = 6
+    cfg["HLSConfig"]["LayerName"]["conv1D_e1"]["ReuseFactor"] = REUSE # note we can use larger RFs here, e.g. RF=20,24,30,40,48,60,120 for nedges=16*15=240
+    cfg["HLSConfig"]["LayerName"]["conv1D_e2"]["ReuseFactor"] = REUSE
+    cfg["HLSConfig"]["LayerName"]["conv1D_e3"]["ReuseFactor"] = REUSE
+
     # Convert the Keras model to C++ and write it
     hls_model = hls4ml.converters.keras_to_hls(cfg)
     #  hls_model.write()
